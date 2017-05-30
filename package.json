@@ -1,0 +1,22 @@
+{
+  "name": "intro2ts",
+  "version": "1.0.0",
+  "description": "Source files for Intro to TypeScript presentation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jodymgustafson/IntroToTS.git"
+  },
+  "author": "JM Gustafson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jodymgustafson/IntroToTS/issues"
+  },
+  "homepage": "https://github.com/jodymgustafson/IntroToTS#readme",
+  "devDependencies": {
+    "@types/jquery": "^2.0.45"
+  }
+}

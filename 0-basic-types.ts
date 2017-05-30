@@ -38,3 +38,9 @@ function doSomething(): void {
 	// do something...
 	//return 1; // error
 }
+
+// Union types
+let u: string | number;
+u = "string";
+u = 4;
+//u = true; // error

@@ -43,9 +43,10 @@
 
 
     // Function overloading
-    function addSession(session: Session)                        :void;
-    function addSession(title: string,       presenter: string)  :Session;
-    function addSession(sessionOrTitle: any, presenter?: string) :any
+    function addSession(session: Session)                       :void;
+    function addSession(title: string,       presenter: string) :Session;
+    //function addSession(sessionOrTitle: any, presenter?: string):any
+    function addSession(sessionOrTitle: Session | string, presenter?: string) :void | Session // Union types
     {
         if (sessionOrTitle instanceof String)
         {

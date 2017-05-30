@@ -1,6 +1,4 @@
-﻿/// <reference path="scripts/typings/jquery/jquery.d.ts" />
-
-$(function ()
+﻿$(function ()
 {
     // jQuery intellisense
     $("#content").text("Hello world");
