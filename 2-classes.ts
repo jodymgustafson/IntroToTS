@@ -41,7 +41,7 @@ class Point3D extends Point2D implements IPoint3D
         this.z = z;
     }
 
-    // override
+    // @override
     public toString(): string
     {
         return `${super.toString()}, ${this.z}`;

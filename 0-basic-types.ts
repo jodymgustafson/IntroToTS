@@ -26,7 +26,7 @@ enum CardSuit
 let suit = CardSuit.Spades;
 let suitName = CardSuit[suit]; // => "Spades"
 
-
+// Specify return type for function
 function concat(s: string, n: number): string
 {
 	//return n; // error

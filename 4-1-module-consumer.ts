@@ -1,5 +1,5 @@
 ﻿// Import everything
-import * as IntroToTs from "./module";
+import * as IntroToTs from "./4-0-module";
 
 (function ()
 {
@@ -10,10 +10,10 @@ import * as IntroToTs from "./module";
 
 // OR import individual items...
 
-//import {Session, addSession} from "./module";
-//
-//(function ()
-//{
-//    var session = new Session("Intro to TypeScript", "Gus");
-//    addSession(session);
-//})();
+import {Session, addSession} from "./4-0-module";
+
+(function ()
+{
+   var session = new Session("Intro to TypeScript", "Gus");
+   addSession(session);
+})();
