@@ -1,11 +1,11 @@
-﻿interface IPoint2D {
-    x: number;
-    y: number;
-}
+﻿import { IPoint2D } from "./0-interfaces";
+
+// Use implements to implement an interface
 
 export class Point2D implements IPoint2D {
-    public x: number;
-    public y: number;
+    // Note: default access is public
+    x: number;
+    y: number;
 
     constructor(x: number, y: number) {
         this.x = x;
@@ -15,12 +15,15 @@ export class Point2D implements IPoint2D {
     public toString(): string {
         return `Point: ${this.x}, ${this.y}`; // template literal
     }
+
 }
 
-var p1 = new Point2D(0, 0);
-var p2 = new Point2D(10, 10);
-var s1 = p1.toString(); // => "Point: 0, 0"
+const p1 = new Point2D(0, 0);
+const p2 = new Point2D(10, 10);
+console.log(p1.toString());
 
+//----------------------------------------~*~----------------------------------------//
+// Use extends to extend an interface
 
 interface IPoint3D extends IPoint2D {
     z: number;
@@ -40,5 +43,5 @@ class Point3D extends Point2D implements IPoint3D {
     }
 }
 
-var p3 = new Point3D(10, 20, 30);
-var s3 = p3.toString(); // => "Point: 10, 20, 30"
+const p3 = new Point3D(10, 20, 30);
+console.log(p3.toString());

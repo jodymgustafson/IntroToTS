@@ -1,8 +1,12 @@
 {
     "compilerOptions": {
+        // ES version to support
         "target": "ES2019",
+        // What type of modules to use 
         "module": "commonjs",
+        // If true generates map files for debugging
         "sourceMap": false,
+        // If true generates declaration files
         "declaration": false
     }
 }
