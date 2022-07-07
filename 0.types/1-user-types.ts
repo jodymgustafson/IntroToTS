@@ -8,23 +8,18 @@ pnt1 = {
 };
 
 // Convert it to a type alias
-export type Point2D = {
+type Point2D = {
     x: number;
     y: number;
 };
-const pnt2: Point2D = {
+
+let pnt2: Point2D;
+pnt2 = {
     x: 1, y: 2
 };
 
 //----------------------------------------~*~----------------------------------------//
-// Type aliases can contain any type of fields, including functions
-type Shape = {
-    name: string;
-    numberOfSides: number;
-    // Use a ? to specify optional fields
-    points?: Point2D[];
-    getArea?: () => number;
-};
+// Placement of annotation makes a difference
 
 // Using type annotation is strict
 const p1: Point2D = {
@@ -41,6 +36,17 @@ const p2 = {
     // z isn't a member of Point2D, but that's ok ;)
     z: 3
 } as Point2D;
+
+//----------------------------------------~*~----------------------------------------//
+// Type aliases can contain optional fields
+
+type Shape = {
+    name: string;
+    numberOfSides: number;
+    // Use a ? to specify optional fields
+    points?: Point2D[];
+    getArea?: () => number;
+};
 
 //----------------------------------------~*~----------------------------------------//
 
@@ -79,6 +85,7 @@ addShape(rectangle);
 // Being concerned only with the structure and capabilities of types
 // is what we call a structurally typed type system.
 
+
 //----------------------------------------~*~----------------------------------------//
 // Function Types
 
@@ -101,3 +108,6 @@ function filterShapes2(shapes: Shape[], filterFn: ShapeFilterFn): Shape[] {
 
 const rectangles = filterShapes2(shapes, shape => shape.numberOfSides === 4);
 console.log(rectangles);
+
+
+export { Point2D }

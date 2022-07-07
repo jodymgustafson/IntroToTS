@@ -12,7 +12,7 @@ type ShapeName = "triangle" | "rectangle" | "pentagon";
 
 type NumberOfSides = 3 | 4 | 5;
 
-export type Shape = {
+type Shape = {
     name: ShapeName;
     numberOfSides: NumberOfSides;
     points?: Point2D[];
@@ -20,8 +20,8 @@ export type Shape = {
 };
 
 //----------------------------------------~*~----------------------------------------//
-
 // Use unions in type annotations
+
 function getShape(nameOrSides: ShapeName | NumberOfSides): Shape | undefined {
     if (typeof nameOrSides === "string") {
         // The compiler now knows this is of type ShapeName
@@ -29,7 +29,7 @@ function getShape(nameOrSides: ShapeName | NumberOfSides): Shape | undefined {
     }
     else if (typeof nameOrSides === "number") {
         // The compiler now knows this is of type NumberOfSides
-        return getShapeSides(nameOrSides);
+        return getShapeBySides(nameOrSides);
     }
     else {
         return undefined;
@@ -45,7 +45,8 @@ function getShapeByName(name: ShapeName): Shape {
         default: throw RangeError("Invalid shape name: " + name);
     }
 }
-function getShapeSides(sides: NumberOfSides): Shape {
+
+function getShapeBySides(sides: NumberOfSides): Shape {
     switch (sides) {
         case 3: return { name: "triangle", numberOfSides: sides };
         case 4: return { name: "rectangle", numberOfSides: sides };
@@ -58,3 +59,5 @@ function getShapeSides(sides: NumberOfSides): Shape {
 console.log(getShape("rectangle"));
 
 console.log(getShape(3));
+
+export { ShapeName, NumberOfSides }

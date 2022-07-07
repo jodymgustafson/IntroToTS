@@ -1,14 +1,19 @@
 import { Point2D } from "./1-user-types";
 import { Rectangle } from "./3-intersection-types";
 
+//----------------------------------------~*~----------------------------------------//
 // Tuple types allow you to express an array with a fixed number of elements whose types are known
 
-// Let's lock down the points that can be used to create a rectangle
-export function getRectangle(points: [Point2D, Point2D, Point2D, Point2D]): Rectangle {
-    if (points.length !== 4) {
-        throw new Error("A rectangle must have 4 sides");
-    }
+type NameAndAge = [string, number];
+const me: NameAndAge = ["Jody", 21];
 
+//----------------------------------------~*~----------------------------------------//
+// Example
+
+type RectanglePoints = [Point2D, Point2D, Point2D, Point2D];
+
+// Let's lock down the points that can be used to create a rectangle
+function getRectangle(points: RectanglePoints): Rectangle {
     const width = Math.abs(points[0].x - points[2].x);
     const height = Math.abs(points[0].y - points[2].y);
 
@@ -32,9 +37,7 @@ const rect = getRectangle([
 ]);
 
 console.log(rect)
-
 console.log(rect.getArea());
-
 console.log(rect.isSquare());
 
 //----------------------------------------~*~----------------------------------------//

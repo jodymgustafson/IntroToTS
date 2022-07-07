@@ -1,6 +1,7 @@
 import { Point2D } from "./1-user-types";
-import { Shape } from "./2-union-types";
+import { NumberOfSides, ShapeName } from "./2-union-types";
 
+//----------------------------------------~*~----------------------------------------//
 // Intersection types allow you to combine types
 
 type Person = {
@@ -27,56 +28,51 @@ const customer: Customer = {
     zip: "55555"
 };
 
+console.log(customer);
+
 //----------------------------------------~*~----------------------------------------//
 // Intersection types allow you to extend types
 
-export type Point3D = Point2D & {
-    z: number;
+type Shape = {
+    name: string;
+    numberOfSides: number;
+    points: Point2D[];
+    getArea: () => number;
 };
 
-export function projectTo2D(pnt: Point3D, distance: number): Point2D {
-    return {
-        x: pnt.x / (pnt.z / distance),
-        y: pnt.y / (pnt.z / distance)
-    };
-}
-
-const p3d: Point3D = {
-    x: 1,
-    y: 2,
-    z: 3
+type RectangularShape = Shape & {
+    width: number;
+    height: number;
+    isSquare: () => boolean
 };
-
-console.log(projectTo2D(p3d, 1));
 
 //----------------------------------------~*~----------------------------------------//
-// Intersection types let you override field types
+// Intersection types allow you override field types
 
-// Let's restrict the name and number of sides
-export type Triangle = Shape & {
+type KnownShape = Shape & {
+    name: ShapeName;
+    numberOfSides: NumberOfSides;
+};
+
+// We can restrict fields to to constant values too
+type Triangle = KnownShape & {
     name: "triangle",
     numberOfSides: 3
 };
-
-export type Rectangle = Shape & {
+type Rectangle = KnownShape & RectangularShape & {
     name: "rectangle",
-    numberOfSides: 4,
-    // (add some fields not in shape...)
-    width: number;
-    height: number;
-    isSquare?: () => boolean
+    numberOfSides: 4
 };
+
+//----------------------------------------~*~----------------------------------------//
+// Example
 
 /**
  * Factory function to create a rectangle
  * @param points 4 corner points
  * @returns A rectangle object
  */
-function getRectangle(points: Point2D[]): Rectangle {
-    if (points.length !== 4) {
-        throw new Error("A rectangle must have 4 sides");
-    }
-
+function createRectangle(points: Point2D[]): Rectangle {
     const width = Math.abs(points[0].x - points[2].x);
     const height = Math.abs(points[0].y - points[2].y);
 
@@ -91,15 +87,11 @@ function getRectangle(points: Point2D[]): Rectangle {
     };
 }
 
-const rect = getRectangle([
+const rect = createRectangle([
     { x: 0, y: 0 },
     { x: 0, y: 2 },
     { x: 3, y: 2 },
     { x: 3, y: 0 },
 ]);
 
-console.log(rect)
-
-console.log(rect.getArea());
-
-console.log(rect.isSquare());
+export { Shape, Rectangle, Triangle }

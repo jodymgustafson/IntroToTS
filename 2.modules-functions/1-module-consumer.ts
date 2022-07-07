@@ -1,11 +1,20 @@
 ﻿//----------------------------------------~*~----------------------------------------//
 // Import individual items
 
-import { Session, addSession } from "./0-module";
+import { Session, addSessions, createSession } from "./0-module";
 
 (() => {
-    const session = new Session("Intro to TypeScript", "Gus");
-    addSession(session);
+    const session = addSessions({
+        title: "Intro to TypeScript",
+        presenter: "Gus"
+    }, {
+        title: "Advanced TypeScript",
+        presenter: "That Guy"
+    });
+
+    let session1 = createSession("Session 1", "Presenter 1");
+    let session2 = createSession("Session 2", "Presenter 1", "Auditorium");
+    addSessions(session1, session2);
 })();
 
 //----------------------------------------~*~----------------------------------------//

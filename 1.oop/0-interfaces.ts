@@ -14,6 +14,9 @@ export interface IPoint3D extends IPoint2D {
     z: number;
 }
 
+//----------------------------------------~*~----------------------------------------//
+// Shape and IShape are nearly identical
+
 export interface IShape {
     name: string;
     numberOfSides: number;

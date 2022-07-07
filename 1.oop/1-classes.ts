@@ -3,14 +3,12 @@
 //----------------------------------------~*~----------------------------------------//
 // Note: default access for class members is public
 
-export abstract class Shape implements IShape {
+abstract class Shape implements IShape {
     private _name: string;
-    private _numberOfSides: number;
     protected _points?: IPoint2D[];
 
-    constructor(name: string, numberOfSides: number, points: IPoint2D[]) {
+    constructor(name: string, points: IPoint2D[]) {
         this._name = name;
-        this._numberOfSides = numberOfSides;
         this._points = points;
     }
 
@@ -19,7 +17,7 @@ export abstract class Shape implements IShape {
     }
 
     get numberOfSides(): number {
-        return this._numberOfSides;
+        return this._points.length;
     }
 
     get points(): IPoint2D[] {
@@ -43,9 +41,11 @@ export abstract class Shape implements IShape {
     }
 }
 
-export class Triangle extends Shape {
+//----------------------------------------~*~----------------------------------------//
+
+class Triangle extends Shape {
     constructor(points: [IPoint2D, IPoint2D, IPoint2D]) {
-        super("triangle", 3, points);
+        super("triangle", points);
     }
 
     getArea(): number {
@@ -56,17 +56,29 @@ export class Triangle extends Shape {
     }
 }
 
-export class Rectangle extends Shape {
+//----------------------------------------~*~----------------------------------------//
+
+class Rectangle extends Shape {
     constructor(points: [IPoint2D, IPoint2D, IPoint2D, IPoint2D]) {
-        super("rectangle", 4, points);
+        super("rectangle", points);
     }
 
     get width(): number {
-        return Math.abs(this.points[0].x - this.points[2].x)
+        return Math.abs(this.points[0].x - this.points[2].x);
     }
 
     get height(): number {
         return Math.abs(this.points[0].y - this.points[2].y);
+    }
+
+    /** @override */
+    get name(): string {
+        return this.isSquare() ? "square" : super.name;
+    }
+
+    /** @override */
+    toString(): string {
+        return `${super.toString()} (${this.width} x ${this.height})`;
     }
 
     getArea(): number {
@@ -76,12 +88,9 @@ export class Rectangle extends Shape {
     isSquare(): boolean {
         return this.width === this.height;
     }
-
-    /** @override */
-    toString(): string {
-        return `${super.toString()} (${this.width} x ${this.height})`;
-    }
 }
+
+//----------------------------------------~*~----------------------------------------//
 
 const shapes: IShape[] = [];
 
@@ -91,15 +100,21 @@ shapes.push(new Triangle([
     { x: 3, y: 0},
 ]));
 
+const w = 3;
+const h = 2;
+
 shapes.push(new Rectangle([
     { x: 0, y: 0},
-    { x: 0, y: 2},
-    { x: 3, y: 2},
-    { x: 3, y: 0}
+    { x: 0, y: h},
+    { x: w, y: h},
+    { x: w, y: 0}
 ]));
 
 console.log(shapes[0].toString());
 console.log(shapes[0].getArea());
+
 console.log(shapes[1].toString());
 console.log(shapes[1].getArea());
 console.log((shapes[1] as Rectangle).isSquare());
+
+export {}

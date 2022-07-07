@@ -1,3 +1,4 @@
+//----------------------------------------~*~----------------------------------------//
 // TypeScript basic types
 
 let n: number;
@@ -37,7 +38,7 @@ function concat(s: string, n: number): string {
 s = concat("The number is: ", 1);
 
 //----------------------------------------~*~----------------------------------------//
-// Always specify a return type!
+// Be kind, always specify a return type!
 
 // When not specifying a return type it will be inferred
 function logMessage(msg: string) {
@@ -49,3 +50,5 @@ function logError(msg: string): void {
     console.error(msg);
     //return 1; // error
 }
+
+export {}
