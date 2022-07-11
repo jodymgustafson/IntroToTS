@@ -27,6 +27,7 @@ enum CardSuit {
 }
 let suit = CardSuit.Spades;
 let suitName = CardSuit[suit]; // => "Spades"
+console.log(suitName)
 
 //----------------------------------------~*~----------------------------------------//
 
@@ -36,6 +37,7 @@ function concat(s: string, n: number): string {
     return s + n;
 }
 s = concat("The number is: ", 1);
+console.log(s)
 
 //----------------------------------------~*~----------------------------------------//
 // Be kind, always specify a return type!

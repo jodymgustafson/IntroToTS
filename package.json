@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/jodymgustafson/IntroToTS#readme",
   "devDependencies": {
-    "@types/jquery": "^2.0.45"
+    "@types/node": "^18.0.3"
   }
 }

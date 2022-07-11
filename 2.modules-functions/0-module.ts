@@ -1,7 +1,7 @@
 ﻿//----------------------------------------~*~----------------------------------------//
 // Use export keyword to make accessible from outside the module
-// Or export all in one place
-// export { Session, addSession }
+// Or export all in one place using:
+// export { Session, addSessions }
 
 export type Session = {
     title: string;
@@ -42,10 +42,15 @@ export function createSession(title: string, presenter: string, room = "unknown"
 
 /** Add a session */
 export function addSession(session: Session): void;
-/** Create and add a session */
+
+/**
+ * Create and add a session
+ * @returns The new session
+ */
 export function addSession(title: string, presenter: string, room?: string, when?: Date): Session;
+
 // The "real" implementation
-export function addSession(sessionOrTitle: Session | string, presenter?: string, room?: string, when?: Date): void | Session {
+export function addSession(sessionOrTitle: Session | string, presenter?: string, room = "unknown", when?: Date): void | Session {
     if (typeof sessionOrTitle === "string") {
         const session = createSession(sessionOrTitle, presenter!, room, when);
         sessions.push(session);
@@ -56,7 +61,9 @@ export function addSession(sessionOrTitle: Session | string, presenter?: string,
     }
 }
 
-export function getSessions(filterFn?: (session: Session) => boolean): Session[] {
+type SessionFilter = (session: Session) => boolean;
+
+export function getSessions(filterFn?: SessionFilter): Session[] {
     if (filterFn) {
         return sessions.filter(filterFn);
     }
@@ -64,5 +71,3 @@ export function getSessions(filterFn?: (session: Session) => boolean): Session[]
         return sessions;
     }
 }
-
-//----------------------------------------~*~----------------------------------------//

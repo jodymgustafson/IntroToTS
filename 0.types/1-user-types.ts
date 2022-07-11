@@ -4,7 +4,8 @@
 // Inline type declaration
 let pnt1: { x: number; y: number; };
 pnt1 = {
-    x: 1, y: 2
+    x: 1,
+    y: 2
 };
 
 // Convert it to a type alias
@@ -15,7 +16,8 @@ type Point2D = {
 
 let pnt2: Point2D;
 pnt2 = {
-    x: 1, y: 2
+    x: 1,
+    y: 2
 };
 
 //----------------------------------------~*~----------------------------------------//
