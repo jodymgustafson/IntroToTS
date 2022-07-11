@@ -1,13 +1,14 @@
-import { Point2D } from "./1-user-types";
+//----------------------------------------~*~----------------------------------------//
+// A union type defines a type that can be one of many types
 
 let u: string | number;
-u = "string";
-u = 4;
+u = "a string";
+u = 23;
 //u = true; // error
 
 //----------------------------------------~*~----------------------------------------//
-
 // You can create union types that are enum-like sets
+
 type ShapeName = "triangle" | "rectangle" | "pentagon";
 
 type NumberOfSides = 3 | 4 | 5;
@@ -15,28 +16,35 @@ type NumberOfSides = 3 | 4 | 5;
 type Shape = {
     name: ShapeName;
     numberOfSides: NumberOfSides;
-    points?: Point2D[];
-    getArea?: () => number;
 };
 
 //----------------------------------------~*~----------------------------------------//
-// Use unions in type annotations
+// Use unions in function type annotations
 
-function getShape(nameOrSides: ShapeName | NumberOfSides): Shape | undefined {
+/**
+ * Creates a shape given a shape name or number of sides
+ */
+function createShape(nameOrSides: ShapeName | NumberOfSides): Shape | undefined {
+    // Sorry, no reflection in TypeScript
     if (typeof nameOrSides === "string") {
         // The compiler now knows this is of type ShapeName
-        return getShapeByName(nameOrSides);
+        return createShapeFromName(nameOrSides);
     }
     else if (typeof nameOrSides === "number") {
         // The compiler now knows this is of type NumberOfSides
-        return getShapeBySides(nameOrSides);
+        return getShapeFromSides(nameOrSides);
     }
     else {
         return undefined;
     }
-} 
+}
 
-function getShapeByName(name: ShapeName): Shape {
+const rect = createShape("rectangle");
+const triangle = createShape(3);
+
+//----------------------------------------~*~----------------------------------------//
+
+function createShapeFromName(name: ShapeName): Shape {
     switch (name) {
         case "triangle": return { name: "triangle", numberOfSides: 3 };
         case "rectangle": return { name: "rectangle", numberOfSides: 4 };
@@ -46,7 +54,7 @@ function getShapeByName(name: ShapeName): Shape {
     }
 }
 
-function getShapeBySides(sides: NumberOfSides): Shape {
+function getShapeFromSides(sides: NumberOfSides): Shape {
     switch (sides) {
         case 3: return { name: "triangle", numberOfSides: sides };
         case 4: return { name: "rectangle", numberOfSides: sides };
@@ -56,8 +64,5 @@ function getShapeBySides(sides: NumberOfSides): Shape {
     }
 }
 
-console.log(getShape("rectangle"));
-
-console.log(getShape(3));
 
 export { ShapeName, NumberOfSides }

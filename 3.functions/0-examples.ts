@@ -1,18 +1,11 @@
 ﻿//----------------------------------------~*~----------------------------------------//
-// Use export keyword to make accessible from outside the module
-// Or export all in one place using:
-// export { Session, addSessions }
 
-export type Session = {
+type Session = {
     title: string;
     presenter: string;
     room?: string;
-    when?: Date;
+    dateTime?: Date;
 };
-
-
-//----------------------------------------~*~----------------------------------------//
-// Non-exported items can't be accessed from outside the module
 
 const sessions: Session[] = [];
 
@@ -28,12 +21,12 @@ export function addSessions(...sessions: Session[]): void {
 //----------------------------------------~*~----------------------------------------//
 // Optional parameters can have default values or be undefined
 
-export function createSession(title: string, presenter: string, room = "unknown", when?: Date): Session {
+export function createSession(title: string, presenter: string, room = "unknown", dateTime?: Date): Session {
     return {
         title: title,
         presenter: presenter,
         room: room,
-        when: when
+        dateTime: dateTime
     };
 }
 
@@ -58,16 +51,5 @@ export function addSession(sessionOrTitle: Session | string, presenter?: string,
     }
     else {
         sessions.push(sessionOrTitle);
-    }
-}
-
-type SessionFilter = (session: Session) => boolean;
-
-export function getSessions(filterFn?: SessionFilter): Session[] {
-    if (filterFn) {
-        return sessions.filter(filterFn);
-    }
-    else {
-        return sessions;
     }
 }

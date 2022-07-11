@@ -15,7 +15,8 @@ let anything: any = "something";
 anything = 2;
 anything = { x: 0, y: 0 };
 anything = myArray;
-anything = () => myBool;
+anything = myBool;
+anything = (x: number, y: number) => x * y;
 
 //----------------------------------------~*~----------------------------------------//
 
@@ -27,7 +28,6 @@ enum CardSuit {
 }
 let suit = CardSuit.Spades;
 let suitName = CardSuit[suit]; // => "Spades"
-console.log(suitName)
 
 //----------------------------------------~*~----------------------------------------//
 
@@ -37,7 +37,6 @@ function concat(s: string, n: number): string {
     return s + n;
 }
 s = concat("The number is: ", 1);
-console.log(s)
 
 //----------------------------------------~*~----------------------------------------//
 // Be kind, always specify a return type!

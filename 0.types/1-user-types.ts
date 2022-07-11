@@ -21,31 +21,12 @@ pnt2 = {
 };
 
 //----------------------------------------~*~----------------------------------------//
-// Placement of annotation makes a difference
-
-// Using type annotation is strict
-const p1: Point2D = {
-    x: 1,
-    y: 2,
-    // ERROR: z isn't a member of Point2D
-    // z: 3
-};
-
-// While using "as" is more lenient (structural)
-const p2 = {
-    x: 1,
-    y: 2,
-    // z isn't a member of Point2D, but that's ok ;)
-    z: 3
-} as Point2D;
-
-//----------------------------------------~*~----------------------------------------//
-// Type aliases can contain optional fields
+// Type aliases can use other type aliases and functions
+// Use a ? to specify optional fields
 
 type Shape = {
     name: string;
     numberOfSides: number;
-    // Use a ? to specify optional fields
     points?: Point2D[];
     getArea?: () => number;
 };
@@ -67,12 +48,11 @@ const triangle: Shape = {
         { x: 1, y: 0 },
     ],
 };
-
 addShape(triangle);
 
 //----------------------------------------~*~----------------------------------------//
+// Quiz time!
 
-// Will this work?
 const rectangle = {
     name: "rectangle",
     numberOfSides: 4,
@@ -81,35 +61,22 @@ const rectangle = {
     getArea: () => 10 * 20
 };
 
-addShape(rectangle);
-
-// The compiler only cares that it has the expected properties.
-// Being concerned only with the structure and capabilities of types
-// is what we call a structurally typed type system.
+// Will this work?
+// addShape(rectangle);
 
 
 //----------------------------------------~*~----------------------------------------//
 // Function Types
 
-// Inline function type
-function filterShapes1(shapes: Shape[], filterFn: (shape: Shape) => boolean): Shape[] {
+// Create type alias for a function
+type ShapeFilterFn = (shape: Shape, index: number) => boolean;
+
+function filterShapes(shapes: Shape[], filterFn: ShapeFilterFn): Shape[] {
     return shapes.filter(filterFn);
 }
 
-const triangles = filterShapes1(shapes, shape => shape.numberOfSides === 3);
-console.log(triangles);
+const rectangles = filterShapes(shapes, (shape, index) => shape.numberOfSides === 4);
 
 //----------------------------------------~*~----------------------------------------//
-
-// Create type alias for the function parameter
-type ShapeFilterFn = (shape: Shape) => boolean;
-
-function filterShapes2(shapes: Shape[], filterFn: ShapeFilterFn): Shape[] {
-    return shapes.filter(filterFn);
-}
-
-const rectangles = filterShapes2(shapes, shape => shape.numberOfSides === 4);
-console.log(rectangles);
-
 
 export { Point2D }

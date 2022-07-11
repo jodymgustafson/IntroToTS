@@ -1,15 +1,16 @@
-﻿import { IPoint2D, IShape } from "./0-interfaces";
+﻿import { Point2D } from "../0.types/1-user-types";
+import { IShape } from "./0-interfaces";
 
 //----------------------------------------~*~----------------------------------------//
 // Note: default access for class members is public
 
 abstract class Shape implements IShape {
     private _name: string;
-    protected _points?: IPoint2D[];
+    points: Point2D[];
 
-    constructor(name: string, points: IPoint2D[]) {
+    constructor(name: string, points: Point2D[]) {
         this._name = name;
-        this._points = points;
+        this.points = points;
     }
 
     get name(): string {
@@ -17,37 +18,34 @@ abstract class Shape implements IShape {
     }
 
     get numberOfSides(): number {
-        return this._points.length;
-    }
-
-    get points(): IPoint2D[] {
-        return this._points;
-    }
-    set points(p: IPoint2D[]) {
-        this._points = p;
+        return this.points.length;
     }
 
     abstract getArea(): number;
 
-    translate(dx: number, dy: number): void {
-        for (const p of this.points) {
-            p.x += dx;
-            p.y += dy;
-        }
-    }
-
     toString(): string {
         return this.name;
+    }
+
+    // You can have static members too
+    static getShapeName(shape: Shape): string {
+        switch (shape.numberOfSides) {
+            case 3: return "triangle";
+            case 4: return "rectangle";
+            case 5: return "pentagon";
+            default: return "unknown";
+        }
     }
 }
 
 //----------------------------------------~*~----------------------------------------//
 
 class Triangle extends Shape {
-    constructor(points: [IPoint2D, IPoint2D, IPoint2D]) {
+    constructor(points: Point2D[]) {
         super("triangle", points);
     }
 
+    // Implement the abstract method
     getArea(): number {
         const p1 = this.points[0];
         const p2 = this.points[1];
@@ -59,7 +57,7 @@ class Triangle extends Shape {
 //----------------------------------------~*~----------------------------------------//
 
 class Rectangle extends Shape {
-    constructor(points: [IPoint2D, IPoint2D, IPoint2D, IPoint2D]) {
+    constructor(points: Point2D[]) {
         super("rectangle", points);
     }
 
@@ -91,30 +89,17 @@ class Rectangle extends Shape {
 }
 
 //----------------------------------------~*~----------------------------------------//
+// Example
 
-const shapes: IShape[] = [];
+const points: Point2D[] = [
+    { x: 0, y: 0 },
+    { x: 0, y: 2 },
+    { x: 3, y: 2 },
+];
+const triangle = new Triangle(points);
+// Call a static method
+const shapeName = Shape.getShapeName(triangle);
 
-shapes.push(new Triangle([
-    { x: 0, y: 0},
-    { x: 0, y: 2},
-    { x: 3, y: 0},
-]));
-
-const w = 3;
-const h = 2;
-
-shapes.push(new Rectangle([
-    { x: 0, y: 0},
-    { x: 0, y: h},
-    { x: w, y: h},
-    { x: w, y: 0}
-]));
-
-console.log(shapes[0].toString());
-console.log(shapes[0].getArea());
-
-console.log(shapes[1].toString());
-console.log(shapes[1].getArea());
-console.log((shapes[1] as Rectangle).isSquare());
+//----------------------------------------~*~----------------------------------------//
 
 export {}
