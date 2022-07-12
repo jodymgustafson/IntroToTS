@@ -27,8 +27,7 @@ pnt2 = {
 type Shape = {
     name: string;
     numberOfSides: number;
-    points?: Point2D[];
-    getArea?: () => number;
+    points: Point2D[];
 };
 
 //----------------------------------------~*~----------------------------------------//
@@ -56,9 +55,14 @@ addShape(triangle);
 const rectangle = {
     name: "rectangle",
     numberOfSides: 4,
+    points: [
+        { x: 0, y: 0 },
+        { x: 0, y: 1 },
+        { x: 1, y: 1 },
+        { x: 1, y: 0 },
+    ],
     width: 10,
-    height: 20,
-    getArea: () => 10 * 20
+    height: 20
 };
 
 // Will this work?
@@ -75,7 +79,10 @@ function filterShapes(shapes: Shape[], filterFn: ShapeFilterFn): Shape[] {
     return shapes.filter(filterFn);
 }
 
-const rectangles = filterShapes(shapes, (shape, index) => shape.numberOfSides === 4);
+// Define a filter function that satisfies the type
+const filterRectanglesFn: ShapeFilterFn = (shape: Shape, index: number) => shape.numberOfSides === 4;
+
+const rectangles = filterShapes(shapes, filterRectanglesFn);
 
 //----------------------------------------~*~----------------------------------------//
 

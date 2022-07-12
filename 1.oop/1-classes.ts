@@ -40,33 +40,9 @@ abstract class Shape implements IShape {
 
 //----------------------------------------~*~----------------------------------------//
 
-class Triangle extends Shape {
-    constructor(points: Point2D[]) {
-        super("triangle", points);
-    }
-
-    // Implement the abstract method
-    getArea(): number {
-        const p1 = this.points[0];
-        const p2 = this.points[1];
-        const p3 = this.points[2];
-        return .5 * Math.abs(p1.x * (p2.y - p3.y) + p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y))
-    }
-}
-
-//----------------------------------------~*~----------------------------------------//
-
 class Rectangle extends Shape {
     constructor(points: Point2D[]) {
         super("rectangle", points);
-    }
-
-    get width(): number {
-        return Math.abs(this.points[0].x - this.points[2].x);
-    }
-
-    get height(): number {
-        return Math.abs(this.points[0].y - this.points[2].y);
     }
 
     /** @override */
@@ -79,8 +55,17 @@ class Rectangle extends Shape {
         return `${super.toString()} (${this.width} x ${this.height})`;
     }
 
+    // implement the abstract method
     getArea(): number {
         return this.width * this.height;
+    }
+
+    get width(): number {
+        return Math.abs(this.points[0].x - this.points[2].x);
+    }
+
+    get height(): number {
+        return Math.abs(this.points[0].y - this.points[2].y);
     }
 
     isSquare(): boolean {
@@ -95,10 +80,12 @@ const points: Point2D[] = [
     { x: 0, y: 0 },
     { x: 0, y: 2 },
     { x: 3, y: 2 },
+    { x: 3, y: 0 },
 ];
-const triangle = new Triangle(points);
+const rectangle = new Rectangle(points);
+
 // Call a static method
-const shapeName = Shape.getShapeName(triangle);
+const shapeName = Shape.getShapeName(rectangle);
 
 //----------------------------------------~*~----------------------------------------//
 

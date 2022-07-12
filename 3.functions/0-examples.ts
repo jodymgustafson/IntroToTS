@@ -33,19 +33,17 @@ export function createSession(title: string, presenter: string, room = "unknown"
 //----------------------------------------~*~----------------------------------------//
 // Function overloading
 
-/** Add a session */
+// First define your function signatures
+
 export function addSession(session: Session): void;
 
-/**
- * Create and add a session
- * @returns The new session
- */
-export function addSession(title: string, presenter: string, room?: string, when?: Date): Session;
+export function addSession(title: string, presenter: string, room?: string, dateTime?: Date): Session;
 
-// The "real" implementation
-export function addSession(sessionOrTitle: Session | string, presenter?: string, room = "unknown", when?: Date): void | Session {
+// Merge the parameters and return types for the "real" implementation
+
+export function addSession(sessionOrTitle: Session | string, presenter?: string, room = "unknown", dateTime?: Date): void | Session {
     if (typeof sessionOrTitle === "string") {
-        const session = createSession(sessionOrTitle, presenter!, room, when);
+        const session = createSession(sessionOrTitle, presenter!, room, dateTime);
         sessions.push(session);
         return session;
     }

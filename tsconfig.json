@@ -3,6 +3,10 @@
         "target": "ES2019",
         "module": "commonjs",
         "sourceMap": false,
-        "declaration": false
+        "declaration": false,
+
+        "strictNullChecks": false,
+        "noImplicitAny": false,
+        "strict": false
     }
 }

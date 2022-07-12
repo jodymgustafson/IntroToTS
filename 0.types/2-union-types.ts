@@ -4,18 +4,23 @@
 let u: string | number;
 u = "a string";
 u = 23;
-//u = true; // error
+// u = true; // error
 
 //----------------------------------------~*~----------------------------------------//
-// You can create union types that are enum-like sets
+// You can create union types that are "enum-like" sets
 
 type ShapeName = "triangle" | "rectangle" | "pentagon";
 
 type NumberOfSides = 3 | 4 | 5;
 
-type Shape = {
+type KnownShape = {
     name: ShapeName;
     numberOfSides: NumberOfSides;
+};
+
+let pentagon: KnownShape = {
+    name: "pentagon",
+    numberOfSides: 5
 };
 
 //----------------------------------------~*~----------------------------------------//
@@ -24,7 +29,7 @@ type Shape = {
 /**
  * Creates a shape given a shape name or number of sides
  */
-function createShape(nameOrSides: ShapeName | NumberOfSides): Shape | undefined {
+function createShape(nameOrSides: ShapeName | NumberOfSides): KnownShape | undefined {
     // Sorry, no reflection in TypeScript
     if (typeof nameOrSides === "string") {
         // The compiler now knows this is of type ShapeName
@@ -39,12 +44,12 @@ function createShape(nameOrSides: ShapeName | NumberOfSides): Shape | undefined 
     }
 }
 
-const rect = createShape("rectangle");
+const rectangle = createShape("rectangle");
 const triangle = createShape(3);
 
 //----------------------------------------~*~----------------------------------------//
 
-function createShapeFromName(name: ShapeName): Shape {
+function createShapeFromName(name: ShapeName): KnownShape {
     switch (name) {
         case "triangle": return { name: "triangle", numberOfSides: 3 };
         case "rectangle": return { name: "rectangle", numberOfSides: 4 };
@@ -54,7 +59,7 @@ function createShapeFromName(name: ShapeName): Shape {
     }
 }
 
-function getShapeFromSides(sides: NumberOfSides): Shape {
+function getShapeFromSides(sides: NumberOfSides): KnownShape {
     switch (sides) {
         case 3: return { name: "triangle", numberOfSides: sides };
         case 4: return { name: "rectangle", numberOfSides: sides };

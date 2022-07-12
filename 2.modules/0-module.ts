@@ -12,7 +12,6 @@ export type Shape = {
     numberOfSides: number;
 };
 
-
 //----------------------------------------~*~----------------------------------------//
 // Non-exported items can't be accessed from outside the module
 
