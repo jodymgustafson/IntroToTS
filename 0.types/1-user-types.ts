@@ -14,7 +14,6 @@ let pnt2: Point2D = {
 
 //----------------------------------------~*~----------------------------------------//
 // Type aliases can use other type aliases and functions
-// Note: You can use a ? to specify optional fields
 
 type Shape = {
     name: string;

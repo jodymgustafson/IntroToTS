@@ -13,7 +13,7 @@ class List<T> {
     }
 }
 
-const stringList = new List();
+const stringList = new List<string>();
 stringList.add("foo", "bar", "baz");
 
 const numberList = new List<number>();

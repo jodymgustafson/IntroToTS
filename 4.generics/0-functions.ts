@@ -3,12 +3,13 @@
 //----------------------------------------~*~----------------------------------------//
 // Generic functions
 
-function parseJson(json: string): Point2D {
+function parsePoint2DJson(json: string): Point2D {
     return JSON.parse(json) as Point2D;
 }
 
-function parseJsonGeneric<T>(json: string): T {
+function parseJson<T>(json: string): T {
     return JSON.parse(json) as T;
 }
 
-const point1 = parseJsonGeneric<Point2D>(`{"x": 0, "y": 0}`);
+const point1 = parseJson<Point2D>(`{"x": 0, "y": 0}`);
+const array = parseJson<string[]>(`["a", "b", "c"]`);

@@ -1,5 +1,5 @@
 //----------------------------------------~*~----------------------------------------//
-// Intersection types allow you to combine types
+// Intersection types allow you to combine types into new types
 
 type Person = {
     firstName: string;
