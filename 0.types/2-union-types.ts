@@ -7,67 +7,14 @@ u = 23;
 // u = true; // error
 
 //----------------------------------------~*~----------------------------------------//
-// You can create union types that are "enum-like" sets
-
-type ShapeName = "triangle" | "rectangle" | "pentagon";
-
-type NumberOfSides = 3 | 4 | 5;
-
-type KnownShape = {
-    name: ShapeName;
-    numberOfSides: NumberOfSides;
-};
-
-let pentagon: KnownShape = {
-    name: "pentagon",
-    numberOfSides: 5
-};
-
-//----------------------------------------~*~----------------------------------------//
 // Use unions in function type annotations
 
-/**
- * Creates a shape given a shape name or number of sides
- */
-function createShape(nameOrSides: ShapeName | NumberOfSides): KnownShape | undefined {
-    // Sorry, no reflection in TypeScript
-    if (typeof nameOrSides === "string") {
-        // The compiler now knows this is of type ShapeName
-        return createShapeFromName(nameOrSides);
-    }
-    else if (typeof nameOrSides === "number") {
-        // The compiler now knows this is of type NumberOfSides
-        return getShapeFromSides(nameOrSides);
-    }
-    else {
-        return undefined;
+function logId(id: number | string): void {
+    if (typeof id === "string") {
+        // In this branch, id is of type 'string'
+        console.log(id.toUpperCase());
+    } else {
+        // Here, id is of type 'number'
+        console.log(id);
     }
 }
-
-const rectangle = createShape("rectangle");
-const triangle = createShape(3);
-
-//----------------------------------------~*~----------------------------------------//
-
-function createShapeFromName(name: ShapeName): KnownShape {
-    switch (name) {
-        case "triangle": return { name: "triangle", numberOfSides: 3 };
-        case "rectangle": return { name: "rectangle", numberOfSides: 4 };
-        case "pentagon": return { name: "pentagon", numberOfSides: 5 };
-        // case "hexagon": return { name: name, numberOfSides: 6 };
-        default: throw RangeError("Invalid shape name: " + name);
-    }
-}
-
-function getShapeFromSides(sides: NumberOfSides): KnownShape {
-    switch (sides) {
-        case 3: return { name: "triangle", numberOfSides: sides };
-        case 4: return { name: "rectangle", numberOfSides: sides };
-        case 5: return { name: "pentagon", numberOfSides: sides };
-        // case 6: return { name: "hexagon", numberOfSides: sides };
-        default: throw RangeError("Invalid number of sides: " + sides);
-    }
-}
-
-
-export { ShapeName, NumberOfSides }

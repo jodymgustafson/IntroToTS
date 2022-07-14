@@ -1,53 +1,55 @@
-﻿//----------------------------------------~*~----------------------------------------//
-
-type Session = {
-    title: string;
-    presenter: string;
-    room?: string;
-    dateTime?: Date;
-};
-
-const sessions: Session[] = [];
-
-//----------------------------------------~*~----------------------------------------//
-// Rest parameters are arrays
-
-export function addSessions(...sessions: Session[]): void {
-    for (const session of sessions) {
-        addSession(session);
-    };
-}
+﻿import { Point2D } from "../0.types/1-user-types";
+const points: Point2D[] = [];
 
 //----------------------------------------~*~----------------------------------------//
 // Optional parameters can have default values or be undefined
 
-export function createSession(title: string, presenter: string, room = "unknown", dateTime?: Date): Session {
-    return {
-        title: title,
-        presenter: presenter,
-        room: room,
-        dateTime: dateTime
+function getMarkdown(title: string, content: string, author = "unknown", date?: Date): string {
+    return `
+        # ${title}
+        ${content}
+        ___
+        Author: ${author} ${date?.toLocaleDateString()}
+    `;
+}
+
+//----------------------------------------~*~----------------------------------------//
+// Rest parameters are always arrays
+
+function addPoints(...points: Point2D[]): void {
+    for (const point of points) {
+        addPoint(point);
     };
 }
+
+addPoints({ x: 0, y: 0}, { x: 1, y: 1 });
 
 //----------------------------------------~*~----------------------------------------//
 // Function overloading
 
-// First define your function signatures
+function addPoint(x: number, y: number): Point2D;
 
-export function addSession(session: Session): void;
+function addPoint(point: Point2D): void;
 
-export function addSession(title: string, presenter: string, room?: string, dateTime?: Date): Session;
+// The implementation is the union of all signatures
 
-// Merge the parameters and return types for the "real" implementation
-
-export function addSession(sessionOrTitle: Session | string, presenter?: string, room = "unknown", dateTime?: Date): void | Session {
-    if (typeof sessionOrTitle === "string") {
-        const session = createSession(sessionOrTitle, presenter!, room, dateTime);
-        sessions.push(session);
-        return session;
+function addPoint(xOrPoint: number | Point2D, y?: number): Point2D | void {
+    if (typeof xOrPoint === "number") {
+        const point = {
+            x: xOrPoint,
+            y: y
+        };
+        this.points.push(point);
+        return point;
     }
     else {
-        sessions.push(sessionOrTitle);
+        this.points.push(xOrPoint);
     }
 }
+
+addPoint(0, 0);
+addPoint({ x: 0, y: 0 });
+
+//----------------------------------------~*~----------------------------------------//
+
+export {}

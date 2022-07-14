@@ -1,28 +1,20 @@
 //----------------------------------------~*~----------------------------------------//
 // Type Aliases or "user defined types"
 
-// Inline type declaration
-let pnt1: { x: number; y: number; };
-pnt1 = {
-    x: 1,
-    y: 2
-};
-
-// Convert it to a type alias
 type Point2D = {
     x: number;
     y: number;
 };
 
-let pnt2: Point2D;
-pnt2 = {
+let pnt2: Point2D = {
     x: 1,
-    y: 2
+    y: 2,
+    // z: 3 // ERROR
 };
 
 //----------------------------------------~*~----------------------------------------//
 // Type aliases can use other type aliases and functions
-// Use a ? to specify optional fields
+// Note: You can use a ? to specify optional fields
 
 type Shape = {
     name: string;
@@ -30,15 +22,15 @@ type Shape = {
     points: Point2D[];
 };
 
-//----------------------------------------~*~----------------------------------------//
-
 const shapes: Shape[] = [];
+
+//----------------------------------------~*~----------------------------------------//
 
 function addShape(shape: Shape): void {
     shapes.push(shape);
 }
 
-const triangle: Shape = {
+let triangle: Shape = {
     name: "triangle",
     numberOfSides: 3,
     points: [
@@ -47,12 +39,13 @@ const triangle: Shape = {
         { x: 1, y: 0 },
     ],
 };
+
 addShape(triangle);
 
 //----------------------------------------~*~----------------------------------------//
-// Quiz time!
+// Quiz time! Will this work?
 
-const rectangle = {
+let rectangle: any = {
     name: "rectangle",
     numberOfSides: 4,
     points: [
@@ -65,22 +58,19 @@ const rectangle = {
     height: 20
 };
 
-// Will this work?
-// addShape(rectangle);
-
+addShape(rectangle);
 
 //----------------------------------------~*~----------------------------------------//
-// Function Types
+// Function Type Aliases
 
-// Create type alias for a function
-type ShapeFilterFn = (shape: Shape, index: number) => boolean;
+type ShapeFilterFn = (shape: Shape) => boolean;
+
+// Define a filter function that satisfies the type
+let filterRectanglesFn: ShapeFilterFn = (shape: Shape) => shape.numberOfSides === 4;
 
 function filterShapes(shapes: Shape[], filterFn: ShapeFilterFn): Shape[] {
     return shapes.filter(filterFn);
 }
-
-// Define a filter function that satisfies the type
-const filterRectanglesFn: ShapeFilterFn = (shape: Shape, index: number) => shape.numberOfSides === 4;
 
 const rectangles = filterShapes(shapes, filterRectanglesFn);
 

@@ -1,6 +1,3 @@
-import { Point2D } from "./1-user-types";
-import { NumberOfSides, ShapeName } from "./2-union-types";
-
 //----------------------------------------~*~----------------------------------------//
 // Intersection types allow you to combine types
 
@@ -29,7 +26,7 @@ const customer: Customer = {
 };
 
 //----------------------------------------~*~----------------------------------------//
-// Intersection types allow you to extend types
+// Extending intersection types
 
 type Shape = {
     name: string;
@@ -50,4 +47,4 @@ const rect: Rectangle = {
 
 //----------------------------------------~*~----------------------------------------//
 
-export { Shape, Rectangle }
+export { }

@@ -11,6 +11,8 @@ interface IShape {
     getArea(): number;
 }
 
+// Interfaces use extend, types use intersection
+
 interface IRectangle extends IShape {
     width: number;
     height: number;
