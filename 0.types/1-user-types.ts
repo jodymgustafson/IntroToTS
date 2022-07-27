@@ -1,64 +1,35 @@
 //----------------------------------------~*~----------------------------------------//
 // Type Aliases or "user defined types"
 
-// Inline type declaration
-let pnt1: { x: number; y: number; };
-pnt1 = {
-    x: 1,
-    y: 2
-};
-
-// Convert it to a type alias
 type Point2D = {
     x: number;
     y: number;
 };
 
-let pnt2: Point2D;
-pnt2 = {
+let pnt2: Point2D = {
     x: 1,
-    y: 2
+    y: 2,
+    // z: 3 // ERROR
 };
 
 //----------------------------------------~*~----------------------------------------//
-// Placement of annotation makes a difference
-
-// Using type annotation is strict
-const p1: Point2D = {
-    x: 1,
-    y: 2,
-    // ERROR: z isn't a member of Point2D
-    // z: 3
-};
-
-// While using "as" is more lenient (structural)
-const p2 = {
-    x: 1,
-    y: 2,
-    // z isn't a member of Point2D, but that's ok ;)
-    z: 3
-} as Point2D;
-
-//----------------------------------------~*~----------------------------------------//
-// Type aliases can contain optional fields
+// Type aliases can use other type aliases and functions
 
 type Shape = {
     name: string;
     numberOfSides: number;
-    // Use a ? to specify optional fields
-    points?: Point2D[];
-    getArea?: () => number;
+    points: Point2D[];
 };
 
-//----------------------------------------~*~----------------------------------------//
-
 const shapes: Shape[] = [];
+
+//----------------------------------------~*~----------------------------------------//
 
 function addShape(shape: Shape): void {
     shapes.push(shape);
 }
 
-const triangle: Shape = {
+let triangle: Shape = {
     name: "triangle",
     numberOfSides: 3,
     points: [
@@ -71,45 +42,37 @@ const triangle: Shape = {
 addShape(triangle);
 
 //----------------------------------------~*~----------------------------------------//
+// Quiz time! Will this work?
 
-// Will this work?
-const rectangle = {
+let rectangle: any = {
     name: "rectangle",
     numberOfSides: 4,
+    points: [
+        { x: 0, y: 0 },
+        { x: 0, y: 1 },
+        { x: 1, y: 1 },
+        { x: 1, y: 0 },
+    ],
     width: 10,
-    height: 20,
-    getArea: () => 10 * 20
+    height: 20
 };
 
 addShape(rectangle);
 
-// The compiler only cares that it has the expected properties.
-// Being concerned only with the structure and capabilities of types
-// is what we call a structurally typed type system.
-
-
 //----------------------------------------~*~----------------------------------------//
-// Function Types
+// Function Type Aliases
 
-// Inline function type
-function filterShapes1(shapes: Shape[], filterFn: (shape: Shape) => boolean): Shape[] {
-    return shapes.filter(filterFn);
-}
-
-const triangles = filterShapes1(shapes, shape => shape.numberOfSides === 3);
-console.log(triangles);
-
-//----------------------------------------~*~----------------------------------------//
-
-// Create type alias for the function parameter
 type ShapeFilterFn = (shape: Shape) => boolean;
 
-function filterShapes2(shapes: Shape[], filterFn: ShapeFilterFn): Shape[] {
+// Define a filter function that satisfies the type
+let filterRectanglesFn: ShapeFilterFn = (shape: Shape) => shape.numberOfSides === 4;
+
+function filterShapes(shapes: Shape[], filterFn: ShapeFilterFn): Shape[] {
     return shapes.filter(filterFn);
 }
 
-const rectangles = filterShapes2(shapes, shape => shape.numberOfSides === 4);
-console.log(rectangles);
+const rectangles = filterShapes(shapes, filterRectanglesFn);
 
+//----------------------------------------~*~----------------------------------------//
 
 export { Point2D }

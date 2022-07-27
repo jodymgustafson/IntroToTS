@@ -1,25 +1,22 @@
+import { Point2D } from "../0.types/1-user-types";
+
 //----------------------------------------~*~----------------------------------------//
 // Interfaces and type aliases are very similar
-// In most cases types aliases are interchangeable with interfaces
+// Type aliases are interchangeable with interfaces
 
-export interface IPoint2D {
-    x: number;
-    y: number;
-}
-
-//----------------------------------------~*~----------------------------------------//
-// Use extends to extend an interface
-
-export interface IPoint3D extends IPoint2D {
-    z: number;
-}
-
-//----------------------------------------~*~----------------------------------------//
-// Shape and IShape are nearly identical
-
-export interface IShape {
+interface IShape {
     name: string;
     numberOfSides: number;
-    points: IPoint2D[];
+    points: Point2D[];
     getArea(): number;
 }
+
+// Interfaces use extend, types use intersection
+
+interface IRectangle extends IShape {
+    width: number;
+    height: number;
+    isSquare(): boolean;
+}
+
+export { IShape }

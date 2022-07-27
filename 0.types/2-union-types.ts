@@ -1,63 +1,20 @@
-import { Point2D } from "./1-user-types";
+//----------------------------------------~*~----------------------------------------//
+// A union type defines a type that can be one of many types
 
 let u: string | number;
-u = "string";
-u = 4;
-//u = true; // error
+u = "a string";
+u = 23;
+// u = true; // error
 
 //----------------------------------------~*~----------------------------------------//
+// Use unions in function type annotations
 
-// You can create union types that are enum-like sets
-type ShapeName = "triangle" | "rectangle" | "pentagon";
-
-type NumberOfSides = 3 | 4 | 5;
-
-type Shape = {
-    name: ShapeName;
-    numberOfSides: NumberOfSides;
-    points?: Point2D[];
-    getArea?: () => number;
-};
-
-//----------------------------------------~*~----------------------------------------//
-// Use unions in type annotations
-
-function getShape(nameOrSides: ShapeName | NumberOfSides): Shape | undefined {
-    if (typeof nameOrSides === "string") {
-        // The compiler now knows this is of type ShapeName
-        return getShapeByName(nameOrSides);
-    }
-    else if (typeof nameOrSides === "number") {
-        // The compiler now knows this is of type NumberOfSides
-        return getShapeBySides(nameOrSides);
-    }
-    else {
-        return undefined;
-    }
-} 
-
-function getShapeByName(name: ShapeName): Shape {
-    switch (name) {
-        case "triangle": return { name: "triangle", numberOfSides: 3 };
-        case "rectangle": return { name: "rectangle", numberOfSides: 4 };
-        case "pentagon": return { name: "pentagon", numberOfSides: 5 };
-        // case "hexagon": return { name: name, numberOfSides: 6 };
-        default: throw RangeError("Invalid shape name: " + name);
+function logId(id: number | string): void {
+    if (typeof id === "string") {
+        // In this branch, id is of type 'string'
+        console.log(id.toUpperCase());
+    } else {
+        // Here, id is of type 'number'
+        console.log(id);
     }
 }
-
-function getShapeBySides(sides: NumberOfSides): Shape {
-    switch (sides) {
-        case 3: return { name: "triangle", numberOfSides: sides };
-        case 4: return { name: "rectangle", numberOfSides: sides };
-        case 5: return { name: "pentagon", numberOfSides: sides };
-        // case 6: return { name: "hexagon", numberOfSides: sides };
-        default: throw RangeError("Invalid number of sides: " + sides);
-    }
-}
-
-console.log(getShape("rectangle"));
-
-console.log(getShape(3));
-
-export { ShapeName, NumberOfSides }

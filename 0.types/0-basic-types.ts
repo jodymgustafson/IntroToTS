@@ -1,5 +1,6 @@
 //----------------------------------------~*~----------------------------------------//
 // TypeScript basic types
+// Type annotations use postfix notation
 
 let n: number;
 n = 4;
@@ -9,13 +10,18 @@ let s = "TypeScript";
 
 let myBool = true;
 
-let myArray: string[] = [];//["one", "two", "three"];
+let myArray: string[] = [];
 
 let anything: any = "something";
 anything = 2;
 anything = { x: 0, y: 0 };
 anything = myArray;
-anything = () => myBool;
+anything = myBool;
+anything = (x: number, y: number) => x * y;
+
+// Note: the default type is any
+let value;
+value = "default type is any";
 
 //----------------------------------------~*~----------------------------------------//
 
@@ -27,26 +33,27 @@ enum CardSuit {
 }
 let suit = CardSuit.Spades;
 let suitName = CardSuit[suit]; // => "Spades"
-console.log(suitName)
 
 //----------------------------------------~*~----------------------------------------//
-
 // Specify parameters and return type for a function
+
 function concat(s: string, n: number): string {
     //return n; // error
     return s + n;
 }
 s = concat("The number is: ", 1);
-console.log(s)
 
 //----------------------------------------~*~----------------------------------------//
 // Be kind, always specify a return type!
 
-// When not specifying a return type it will be inferred
+// When not specified the return type will be inferred
 function logMessage(msg: string) {
     console.log(msg);
     return 1;
 }
+
+//----------------------------------------~*~----------------------------------------//
+// void
 
 function logError(msg: string): void {
     console.error(msg);
