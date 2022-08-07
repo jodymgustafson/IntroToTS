@@ -65,7 +65,8 @@ addShape(rectangle);
 type ShapeFilterFn = (shape: Shape) => boolean;
 
 // Define a filter function that satisfies the type
-let filterRectanglesFn: ShapeFilterFn = (shape: Shape) => shape.numberOfSides === 4;
+let filterRectanglesFn: ShapeFilterFn =
+    (shape: Shape) => shape.numberOfSides === 4;
 
 function filterShapes(shapes: Shape[], filterFn: ShapeFilterFn): Shape[] {
     return shapes.filter(filterFn);

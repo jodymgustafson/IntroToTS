@@ -10,7 +10,8 @@ let s = "TypeScript";
 
 let myBool = true;
 
-let myArray: string[] = [];
+let myArray: string[];
+myArray = [ "one", "two", "three" ];
 
 let anything: any = "something";
 anything = 2;

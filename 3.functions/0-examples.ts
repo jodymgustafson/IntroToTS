@@ -4,7 +4,8 @@ const points: Point2D[] = [];
 //----------------------------------------~*~----------------------------------------//
 // Optional parameters can have default values or be undefined
 
-function getMarkdown(title: string, content: string, author = "unknown", date?: Date): string {
+function getMarkdown(title: string, content: string,
+    author = "unknown", date?: Date): string {
     return `
         # ${title}
         ${content}
@@ -22,7 +23,7 @@ function addPoints(...points: Point2D[]): void {
     };
 }
 
-addPoints({ x: 0, y: 0}, { x: 1, y: 1 });
+addPoints({ x: 0, y: 0}, { x: 1, y: 1 }, { x: 1, y: 1 }, { x: 1, y: 1 });
 
 //----------------------------------------~*~----------------------------------------//
 // Function overloading
@@ -33,17 +34,17 @@ function addPoint(point: Point2D): void;
 
 // The implementation is the union of all signatures
 
-function addPoint(xOrPoint: number | Point2D, y?: number): Point2D | void {
-    if (typeof xOrPoint === "number") {
+function addPoint(xOrPnt: number | Point2D, y?: number): Point2D | void {
+    if (typeof xOrPnt === "number") {
         const point = {
-            x: xOrPoint,
+            x: xOrPnt,
             y: y
         };
         this.points.push(point);
         return point;
     }
     else {
-        this.points.push(xOrPoint);
+        this.points.push(xOrPnt);
     }
 }
 
